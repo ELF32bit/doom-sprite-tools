@@ -1,7 +1,6 @@
 # DOOM sprite tools
-![Demonstration](screenshots/demonstration.webp)
-
-Turn camera footage into game sprites like FPS weapons.<br>
+![Demonstration](screenshots/demonstration.webp)<br>
+Turn camera footage into game sprites like weapons.<br>
 Chroma key filter is used to extract opaque pixels.<br>
 Requires **ffmpeg** to be installed.<br>
 
