@@ -1,4 +1,4 @@
-# DOOM Sprite Tools
+# DOOM sprite tools
 ![Demonstration](screenshots/demonstration.webp)
 
 Turn camera footage into game sprites like FPS weapons.<br>
