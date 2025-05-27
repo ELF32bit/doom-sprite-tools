@@ -5,9 +5,10 @@ from pathlib import Path
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument("input", type=str)
 parser.add_argument("--fps", type=float, default=5.0, help="|")
+parser.add_argument("--ffmpeg", action="store_true", help="|")
 args = parser.parse_args()
 
-def webp_task(directory):
+def webp_task_ffmpeg(directory):
 	output_file = "unnamed.webp"
 	if len(directory) > 0:
 		output_file = Path(directory).stem + ".webp"
@@ -32,6 +33,24 @@ def webp_task(directory):
 		output_file
 	], stdout=subprocess.DEVNULL)
 
-webp_task(args.input)
+def webp_task_magick(directory):
+	output_file = "unnamed.webp"
+	if len(directory) > 0:
+		output_file = Path(directory).stem + ".webp"
+
+	subprocess.run([
+		"magick",
+		"-delay",
+		str(100.0 / args.fps),
+		"-loop",
+		"0",
+		os.path.join(directory, "*.png"),
+		output_file
+	], stdout=subprocess.DEVNULL)
+
+if args.ffmpeg:
+	webp_task_ffmpeg(args.input)
+else:
+	webp_task_magick(args.input)
 
 sys.exit()
