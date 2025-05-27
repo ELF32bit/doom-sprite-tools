@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import argparse, os, sys, subprocess
+import argparse, os, subprocess
 from pathlib import Path
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -52,5 +52,3 @@ if args.ffmpeg:
 	webp_task_ffmpeg(args.input)
 else:
 	webp_task_magick(args.input)
-
-sys.exit()
