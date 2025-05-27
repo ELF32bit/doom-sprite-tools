@@ -22,52 +22,52 @@ parser.add_argument("--output", type=str, help="|")
 args = parser.parse_args()
 
 if args.output != None:
-    try:
-        os.mkdir(args.output)
-    except FileExistsError:
-        pass
-    except Exception:
-        args.output = None
+	try:
+		os.mkdir(args.output)
+	except FileExistsError:
+		pass
+	except Exception:
+		args.output = None
 
 photo_filters = f"\
-    crop={args.crop.replace('w', 'in_w').replace('h', 'in_h')}, \
-    chromakey={args.color}:{args.similarity}:{args.blend}, \
-    premultiply=inplace=1, \
-    scale={args.scale}, \
-    eq=contrast={args.contrast}: \
-    brightness={args.brightness}: \
-    saturation={args.saturation}: \
-    gamma={args.gamma}: \
-    gamma_r={args.gamma_r}: \
-    gamma_g={args.gamma_g}: \
-    gamma_b={args.gamma_b}: \
-    gamma_weight={args.gamma_weight}, \
-    curves=preset=linear_contrast, \
-    cas=strength=0.05"
+	crop={args.crop.replace('w', 'in_w').replace('h', 'in_h')}, \
+	chromakey={args.color}:{args.similarity}:{args.blend}, \
+	premultiply=inplace=1, \
+	scale={args.scale}, \
+	eq=contrast={args.contrast}: \
+	brightness={args.brightness}: \
+	saturation={args.saturation}: \
+	gamma={args.gamma}: \
+	gamma_r={args.gamma_r}: \
+	gamma_g={args.gamma_g}: \
+	gamma_b={args.gamma_b}: \
+	gamma_weight={args.gamma_weight}, \
+	curves=preset=linear_contrast, \
+	cas=strength=0.05"
 
 def photo_task(file):
-    output_file = Path(file).stem + ".png"
-    if args.output != None:
-        output_file = os.path.join(args.output, output_file)
+	output_file = Path(file).stem + ".png"
+	if args.output != None:
+		output_file = os.path.join(args.output, output_file)
 
-    subprocess.run([
-        "ffmpeg",
-        "-v",
-        "quiet",
-        "-y",
-        "-i",
-        file,
-        "-vf",
-        photo_filters,
-        "-sws_flags",
-        args.scale_algorithm,
-        output_file
-    ], stdout=subprocess.DEVNULL)
+	subprocess.run([
+		"ffmpeg",
+		"-v",
+		"quiet",
+		"-y",
+		"-i",
+		file,
+		"-vf",
+		photo_filters,
+		"-sws_flags",
+		args.scale_algorithm,
+		output_file
+	], stdout=subprocess.DEVNULL)
 
 photos = []
 for photo in glob.glob(args.input):
-    if not photo.endswith(tuple([".png", ".PNG"])):
-        photos.append(photo)
+	if not photo.endswith(tuple([".png", ".PNG"])):
+		photos.append(photo)
 
 thread_pool = multiprocessing.Pool()
 thread_pool.map(photo_task, photos)
