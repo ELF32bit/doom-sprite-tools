@@ -2,7 +2,7 @@
 
 python photos2sprites.py \
 	"examples/photos/*.jpg" \
-	--color "2b6426" \
+	--color "#2b6426" \
 	--similarity 0.05 \
 	--crop "2000:2000:500:0" \
 	--scale "256:256" \
@@ -11,14 +11,15 @@ python photos2sprites.py \
 
 python sprites2webp.py \
 	"test-photos" \
-	--fps 5.0
+	--fps 5.0 \
+#   --ffmpeg
 
 python video2sprites.py \
 	"examples/video.mp4" \
 	--seek 2.0 \
 	--duration 4.0 \
 	--fps 2.0 \
-	--color "2b6426" \
+	--color "#2b6426" \
 	--similarity 0.05 \
 	--crop "1080:1080:250:0" \
 	--scale "256:256" \
@@ -27,4 +28,5 @@ python video2sprites.py \
 
 python sprites2webp.py \
 	"test-video" \
-	--fps 5.0
+	--fps 5.0 \
+#   --ffmpeg
