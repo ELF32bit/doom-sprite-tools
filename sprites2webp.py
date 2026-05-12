@@ -3,9 +3,9 @@ import argparse, os, subprocess
 from pathlib import Path
 
 parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument("input", type=str)
-parser.add_argument("--fps", type=float, default=5.0, help="|")
-parser.add_argument("--ffmpeg", action="store_true", help="|")
+parser.add_argument("input", type=str, help="input directory with sprites")
+parser.add_argument("--fps", type=float, default=5.0, help="frame rate of the final image")
+parser.add_argument("--ffmpeg", action="store_true", help="use lower quality FFmpeg instead of ImageMagick")
 args = parser.parse_args()
 
 def webp_task_ffmpeg(directory):
